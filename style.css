@@ -13,9 +13,8 @@ i {
   height: 30px;
   border-radius: 50%;
   background: rgba(117, 180, 44, 0.623);
-  line-height: 500px;
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+li {
+  line-height: 2rem;
 }
