@@ -1,18 +1,31 @@
 const listElm = document.querySelector("#list");
 
+let userArgs = [];
+
 const apiUrl = "https://randomuser.me/api/?";
 
 // Fetch method to call the API
 const fetchUsers = (params = "results=20") => {
   fetch(apiUrl + params)
-    .then((response) => response.json())
-    .then((data) => {
-      const user = data.results;
-      let str = "";
+    .then((response) => {
+      // console.log(response.json());
+      return response.json().then((data) => {
+        // console.log(data.results);
+        userArgs = data.results;
+        displayUsers(userArgs);
+      });
+    })
+    .catch((error) => console.log(error));
+};
 
-      user.map((usr) => {
-        console.log(usr);
-        str += `
+fetchUsers();
+
+const displayUsers = (user) => {
+  let str = "";
+
+  user.map((usr) => {
+    // console.log(usr);
+    str += `
         <div class="col-md-6 col-lg-3 py-3">
             <!-- Card from bootstrap -->
             <div class="card">
@@ -35,16 +48,32 @@ const fetchUsers = (params = "results=20") => {
             </div>
           </div>
         `;
-      });
+  });
 
-      listElm.innerHTML = str;
+  listElm.innerHTML = str;
 
-      document.getElementById("user-count").innerHTML = user.length;
-    });
+  document.getElementById("user-count").innerHTML = user.length;
 };
-fetchUsers();
 
 const handleOnChange = (e) => {
   const params = "results=20&gender=" + e.value;
   fetchUsers(params);
+};
+
+// Filter users on live search
+
+const handleOnSearch = (e) => {
+  const str = e.value.toLowerCase();
+
+  console.log(str);
+
+  const filteredArgs = userArgs.filter((item) => {
+    const userFullName = (item.name.first + " " + item.name.last).toLowerCase();
+
+    if (userFullName.includes(str)) {
+      return item;
+    }
+  });
+
+  displayUsers(filteredArgs);
 };
