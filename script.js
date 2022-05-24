@@ -18,7 +18,7 @@ const fetchUsers = (params = "results=20") => {
             <div class="card">
               <img src="${usr.picture.large}" class="card-img-top" alt="..." />
               <div class="card-body">
-                <h5 class="card-title">
+                <h5 class="card-title text-center">
                 ${usr.name.title}
                 ${usr.name.first}
                 ${usr.name.last}
