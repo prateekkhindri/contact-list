@@ -38,6 +38,8 @@ const fetchUsers = (params = "results=20") => {
       });
 
       listElm.innerHTML = str;
+
+      document.getElementById("user-count").innerHTML = user.length;
     });
 };
 fetchUsers();
