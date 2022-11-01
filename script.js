@@ -8,9 +8,7 @@ const apiUrl = "https://randomuser.me/api/?";
 const fetchUsers = (params = "results=20") => {
   fetch(apiUrl + params)
     .then((response) => {
-      // console.log(response.json());
       return response.json().then((data) => {
-        // console.log(data.results);
         userArgs = data.results;
         displayUsers(userArgs);
       });
